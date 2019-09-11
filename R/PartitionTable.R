@@ -14,7 +14,7 @@
 #' PartitionTable(aligned_dir, species_list, threshold)
 
 
-PartitionTable <- function(aligned_dir){
+PartitionTable <- function(aligned_dir, missing_df){
     old_max <- 1
     cat("#nexus\nbegin sets;\n", file = "table.partition", append = TRUE)
     for (i in 1:length(row.names(missing_df))){
