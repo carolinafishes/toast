@@ -41,7 +41,7 @@ RunBusco <- function(fasta_dir, toast_dir, path_to_run_busco.py, path_to_orthoDB
         pb2 <- txtProgressBar(min = 0, max = length(differences), style = 3)
         for (i in 1:length(differences)) {
             busco_fasta <- paste0(differences[i], ".fasta")
-            system(paste0("python ", path_to_run_busco.py, " -c ", threads, " -i ", toast_dir,
+            system(paste0("python3 ", path_to_run_busco.py, " -c ", threads, " -i ", toast_dir,
                           "/fasta/", busco_fasta, " -o ", differences[i], " -l ", path_to_orthoDB,
                           " -m tran", " >> ", toast_dir, "busco_run_notes.txt"))
             setTxtProgressBar(pb2, i)
