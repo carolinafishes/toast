@@ -1,0 +1,51 @@
+Package: toast
+Title: Transcriptome Ortholog Alignment Sequence Tools
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Dustin ",
+           family = "Wcisel",
+           role = c("aut", "cre"),
+           email = "djwcisel@ncsu.edu",
+           comment = c(ORCID = "0000-0001-6858-643X"))
+    person(given = "James Thomas",
+           family = "Howard",
+           role = c("aut", "cre"),
+           email = "jthowar3@ncsu.edu")
+    person(given = "Jeffrey",
+           family = "Yoder",
+           role = c("aut", "cre"),
+           email = "jayoder@ncsu.edu",
+           comment = c(ORCID = "0000-0002-6083-1311"))
+    person(given = "Alex",
+           family = "Dornburg",
+           role = c("aut", "cre"),
+           email = "dornburgalex@gmail.com",
+           comment = c(ORCID = "0000-0003-0863-2283"))
+Description: TOAST, an open source software package of R tools for Linux that can utilize the ortholog searches based 
+             on the software Benchmarking Universal Single-Copy Orthologs (BUSCO) to assemble multiple sequence alignments 
+             of orthologous loci from transcriptomes for any group of organisms. By streamlining search, query, and assembly, 
+             TOAST automates the generation of locus and concatenated alignments, and also presents a series of outputs from 
+             which users can explore missing data patterns across their alignments.
+License: GNU
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1.9000
+Imports: 
+	rentrez,
+	seqinr,
+	usethis,
+	devtools,
+	viridisLite,
+	circlepackeR,
+	packcircles,
+	ggplot2,
+	viridis,
+	gridExtra,
+	data.tree,
+	foreach,
+	doParallel,
+	streamgraph,
+	reshape
+Remotes:
+    jeromefroe/circlepackeR,
+    hrbrmstr/streamgraph
