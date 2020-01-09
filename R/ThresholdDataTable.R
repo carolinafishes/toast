@@ -24,7 +24,7 @@ ThresholdDataTable <- function(missing_df, threshold) {
     max <- nrow(missing_df)
     summary <- colSums(is.na(missing_df)) #make a list of how many null variables are found
     for (i in 1:length(summary)){
-        if (summary[i] > (max - 50)){
+        if (summary[i] >= (max - threshold)){
             appended <- append(appended, summary[i])
         }
     }
