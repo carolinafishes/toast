@@ -33,7 +33,7 @@ ThresholdDataTable <- function(missing_df, threshold) {
 
     for (j in 1:length(wanted)){
             if (exists("threshold_df") == FALSE){ #if it doesn't exist, create it
-                threshold_df <- missing_df[appended[j]]
+                threshold_df <- missing_df[wanted[j]]
             } else {
                 threshold_df <- cbind(threshold_df, missing_df[wanted[j]])
             }
