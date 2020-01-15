@@ -4,7 +4,7 @@
 \alias{PartitionTable}
 \title{Utility for Creating a Partition Table from Fasta Alignments}
 \usage{
-PartitionTable(aligned_dir)
+PartitionTable(aligned_dir, missing_df)
 }
 \arguments{
 \item{aligned_dir}{Directory where fasta alignments can be found}

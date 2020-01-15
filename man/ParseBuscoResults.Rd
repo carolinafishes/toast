@@ -4,18 +4,25 @@
 \alias{ParseBuscoResults}
 \title{Assemble Single Ortholog IDs from BUSCO}
 \usage{
-ParseBuscoResults(busco_dir)
+ParseBuscoResults(busco_dir, length_threshold = 0.25)
 }
 \arguments{
 \item{busco_dir}{Directory where busco results were written. FIles must be in the format
 run_Busco_Genus_species}
+
+\item{length_threshold}{length_threshold should be a value between 0 and 1.
+A value of 0 will not set a required length for each busco id.
+A value of 1 will not include sequences that are less than the
+length of the busco id.}
+
+\item{ortho_dir}{= Directory where orthoDB resides}
 }
 \description{
 Reads through the full table found in folders ./busco_results/run_Busco* and
         returns a .tsv of the results
 }
 \examples{
-parsed_busco_results <- ParseBuscoResults(busco_dir = "path/to/busco/results")
+parsed_busco_results <- ParseBuscoResults(busco_dir = "path/to/busco/results" ortho_dir = "path_to_od", length_threshold = 0)
 }
 \author{
 Dustin J Wcisel, \email{djwcisel@ncsu.edu}

@@ -20,8 +20,11 @@
 #' @examples
 #' ThresholdExtract(aligned_dir = ad, missing_df = threshold_df, threshold_fasta_folder = "/path/to/store/fastas/threshold100")
 
+
 ThresholdExtract <- function(aligned_dir, missing_df, threshold_fasta_folder){
+    pb4 <- txtProgressBar(min = 0, max = nrow(missing_df), style = 3)
     for(j in 1:nrow(missing_df)){ #parse through each row, by column
+        setTxtProgressBar(pb4, j) #change progress bar after each row (species)
         for(i in 1:ncol(missing_df)){
             cell_value <- toString(missing_df[j,i])
             if(cell_value != "NA" ){
@@ -30,8 +33,9 @@ ThresholdExtract <- function(aligned_dir, missing_df, threshold_fasta_folder){
                 fasta_file <- read.fasta(file = paste0(aligned_dir, "/", full_fasta_name), as.string = TRUE)
                 species_to_get <- colnames(missing_df)[i]
                 seq_to_write <-  gsub("(.{60})", "\\1\n", fasta_file[[species_to_get]][[1]])
-                cat(">", full_fasta_name, "\n", seq_to_write, "\n", file = paste0(threshold_fasta_folder, "/", full_fasta_name), append = TRUE, sep = "")
+                cat(">", colnames(missing_df)[i], "\n", seq_to_write, "\n", file = paste0(threshold_fasta_folder, "/", full_fasta_name), append = TRUE, sep = "")
             }
         }
     }
+close(pb4)
 }

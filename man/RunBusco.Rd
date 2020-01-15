@@ -4,8 +4,13 @@
 \alias{RunBusco}
 \title{Run BUSCO to Assign Ortholog Ids}
 \usage{
-RunBusco(fasta_dir, toast_dir, path_to_run_busco.py, path_to_orthoDB,
-  threads = 1)
+RunBusco(
+  fasta_dir,
+  toast_dir,
+  path_to_run_busco.py,
+  path_to_orthoDB,
+  threads = 1
+)
 }
 \arguments{
 \item{fasta_dir}{directory of fastas; Genus_species.fasta}

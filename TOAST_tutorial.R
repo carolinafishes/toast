@@ -7,16 +7,16 @@ library("toast")
 
 #set up some variables now to make things easier down the road
 #these directories must exist - TOAST will not make them for you
-td <- "/home/dustin/projects/toast_revisions/camel_toast" #toast_directory
-fd <- "/home/dustin/projects/toast_revisions/camel_toast/fasta" #fasta_dir
+td <- "/home/dustin/projects/holo_toast" #toast_directory
+fd <- "/home/dustin/projects/holo_toast/fasta" #fasta_dir
 bs <- "/home/dustin/software/busco/scripts/run_BUSCO.py" #path to busco_script
-bd <- "/home/dustin/projects/toast_revisions/camel_toast/busco_results" #path to busco results directory
-ed <- "/home/dustin/projects/toast_revisions/camel_toast/extracted" #extracted_dir
-md <- "/home/dustin/projects/toast_revisions/camel_toast/mafft_aligned" #mafft_dir
-od <- "/home/dustin/projects/toast_revisions/camel_toast/laurasiatheria_odb9" #path to orthoDB directory
-ad <- "/home/dustin/projects/toast_revisions/camel_toast/mafft_aligned" #mafft_dir, which is a directory of aligned fastas
+bd <- "/home/dustin/projects/holo_toast/busco_results" #path to busco results directory
+ed <- "/home/dustin/projects/holo_toast/extracted" #extracted_dir
+md <- "/home/dustin/projects/holo_toast/mafft_aligned" #mafft_dir
+od <- "/home/dustin/projects/holo_toast/laurasiatheria_odb9" #path to orthoDB directory
+ad <- "/home/dustin/projects/holo_toast/mafft_aligned" #mafft_dir, which is a directory of aligned fastas
 go_oro <- "/home/dustin/projects/go_slim/goslim_agr.obo" #this must be downloaded online
-ortho <- "/home/dustin/projects/toast_revisions/camel_toast/laurasiatheria_odb9/info/laurasiatheria_314145_OrthoDB9_orthogroup_info.txt" #make sure you unzip this file
+ortho <- "/home/dustin/projects/holo_toast/laurasiatheria_odb9/info/laurasiatheria_314145_OrthoDB9_orthogroup_info.txt" #make sure you unzip this file
 cpu <- 12 #number of threads to use at various steps
 
 setwd(td)
@@ -47,15 +47,19 @@ colSums(is.na(mdf))
 
 #remove species/samples that are missing too much data
 
-threshold_df <- ThresholdDataTable(missing_df = missing_df, threshold = 100)
+threshold_df <- ThresholdDataTable(missing_df = mdf, threshold = 1000)
 
 #threshold_df can now serve as "parsed_busco_table" from previous steps to generate alignment
 
-ThresholdExtract(aligned_dir = ad, missing_df = threshold_df, threshold_fasta_folder = "home/dustin/temp/toast/trial1/threshold100")
+ThresholdExtract(aligned_dir = ad, missing_df = threshold_df, threshold_fasta_folder = "/home/dustin/projects/holo_toast/threshold100")
+
+#realign
+
+MafftOrientAlign(extract_dir = "/home/dustin/projects/holo_toast/threshold1000", mafft_dir = "/home/dustin/projects/holo_toast/threshold1000/mafft_aligned", threads = cpu)
 
 #table.partition
 
-PartitionTable(aligned_dir = md, missing_df = mdf) #writes table.partition to working directory
+PartitionTable(aligned_dir = "/home/dustin/projects/holo_toast/threshold1000/mafft_aligned", missing_df = threshold_df) #writes table.partition to working directory
 
 #multi-gene alignment
 
@@ -79,10 +83,10 @@ if ("UpSetR" %in% rownames(installed.packages()) == FALSE) {
 library(UpSetR)
 #Create intersection plot
 #format BP data set to plot using the upset() function
-rownames(BP)[21] <- "carb. derivative metabolic"
-to_plot <- t(BP)
-to_plot[to_plot > 0] <- 1
-to_plot <- data.frame(to_plot)
+rownames(BP)[21] <- "carb. derivative metabolic" #original name too long
+to_plot <- t(BP) #transpose the data
+to_plot[to_plot > 0] <- 1 #remove comparisons with no overlap
+to_plot <- data.frame(to_plot) # convert to dataframe
 to_plot <- cbind(rownames(to_plot), to_plot) #set rownames to be the first row, remove rownames later
 colnames(to_plot)[1] <- "Identifier"
 rownames(to_plot) <- NULL #remove rownames
@@ -93,7 +97,7 @@ to_plot[,2:ncol(to_plot)] <- sapply(to_plot[2:ncol(to_plot)], as.integer)
 #create intersection plot
 upset(to_plot, order.by = "freq", sets = colnames(to_plot)[2:ncol(to_plot)])
 
-### Create an occumpany matrix plot to display which Busco Ids were found in each sample
+### Create an occupancy matrix plot to display which Busco Ids were found in each sample
 
 VPBR <- VisualizePBR(busco_dir = bd) #creates a data.frame, similar to the function ParseBuscoResults()
 
@@ -135,7 +139,7 @@ box()
 axis(side = 2, at=seq(1,length(yLabels),1), labels=yLabels, las= 1,
      cex.axis=1)
 
-### Create Stacked Bar Grapsh showing how many orthologs were found belonging to the 21 GoTerms
+### Create Stacked Bar Graph showing how many orthologs were found belonging to the 21 GoTerms
 
 # create color palette:
 library(RColorBrewer)

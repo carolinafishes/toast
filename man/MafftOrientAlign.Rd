@@ -4,7 +4,7 @@
 \alias{MafftOrientAlign}
 \title{Align BUSCO Orthologs}
 \usage{
-MafftOrientAlign(extract_dir, mafft_dir, threads = 1)
+MafftOrientAlign(extract_dir, mafft_dir, threads = 1, omit_invariants = T)
 }
 \arguments{
 \item{extract_dir}{Directory containing unaligned/unorientated fasta files}
@@ -12,6 +12,8 @@ MafftOrientAlign(extract_dir, mafft_dir, threads = 1)
 \item{mafft_dir}{Directory to write orientated and aligned fasta files}
 
 \item{threads}{Number of cpu threads to use}
+
+\item{omit_invariants}{T/F toggle}
 }
 \description{
 This function allows you align each ortholog between all species
