@@ -12,6 +12,7 @@
 #' @param fragmented whether or not to include fragmented sequences
 #' @param duplicated whether or not to include duplicated sequences
 #' @param threshold minimum number of base pairs required for a fragmented sequence to be extracted.Not used when fragmented = false
+#' @param sequence the type of sequence, can be DNA ("DNA") as a default or Amino Acid ("AA")
 #' @export
 #' @return This function uses the output of a busco analysis and specified fasta 
 #'         file to extract  busco sequences and write these into fasta files. 
@@ -21,10 +22,14 @@
 #' extractBuscos(tsvLocations=c("path/to/first/tsvfile","path/to/second/tsvfile",...), fasta=c("path/to/first/fastafile","path/to/second/fastafile",...),ed="path/to/extracted/", sampleIDs=c("Genus_species","Othergenus_otherspecies",...),complete=TRUE, fragmented=TRUE, threshold=300, duplicated=TRUE)
 
 
-extractBuscos<-function(tsvLocations, fastaLocations, ed, SampleIDs,complete=TRUE, fragmented=TRUE, threshold=300, duplicated=TRUE){
+extractBuscos<-function(tsvLocations, fastaLocations, ed, SampleIDs,complete=TRUE, fragmented=TRUE, threshold=300, duplicated=TRUE, sequence="DNA"){
   for (i in 1:length(fastaLocations)) {
     #read in the fasta
-    fasta<-readDNAStringSet(paste0(fastaLocations[i]))
+    if(sequence=="DNA"){
+		fasta<-Biostrings::readDNAStringSet(paste0(fastaLocations[i])) }
+	if(sequence=="AA"){
+		fasta<-Biostrings::readAAStringSet(paste0(fastaLocations[i])) 
+	}
     #read in the table, note that we need to use skip=2 to remove the two info lines and use the read.delim function
     tsvtable <- read.delim(file= tsvLocations[i], sep = '\t', header = TRUE, skip=2)
     marker<-NULL
