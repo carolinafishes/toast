@@ -37,7 +37,7 @@ geneTreeFilter <- function(ingroup, outgroup, threshold=1, tree_file_dir, tree_f
       tree_info[i,2]<-"No_outs"
       tree_info[i,3]<-"Omit"
     } 
-    if (coverage=>threshold) {
+    if (coverage>=threshold) {
       outs<-taxa[taxa %in% outgroups]
       rooted<-root(tree, outs[1])
       ins<-outgroups[outgroups %in% taxa]	
