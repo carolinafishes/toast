@@ -15,61 +15,48 @@
 #' VisualizeThreshold("parsed_busco_results.tsv", 1000)
 
 VisualizeThreshold <- function(tsv, threshold){
-    cet_data <- tsv
+ 	cet_data <- tsv
     data_names <- names(cet_data)
     actual_names <- data_names[2:length(data_names)]
-    actual_data <- cet_data[2:length(data_names)]
-    mm <- matrix(nrow = 1, ncol = length(actual_names))
-
-    for (i in 1:length(actual_names)){
-        subset <- actual_data[,i]
-        list_of_nas <- is.na(subset)
-        missing <- table(list_of_nas)
-        mm[,i] <- missing[2]
-    }
-    mm[is.na(mm)] <- 0
+    actual_data <- cet_data[2:length(cet_data[,1]),]
+    
+    actual_data[is.na(actual_data)] <- 0
+    actual_data[actual_data != 0]<-1
+	actual_data <- actual_data[, 2:length(actual_data[1,])]
+	actual_data <-data.frame(apply(actual_data, 2, function(x) as.numeric(as.character(x))))
 
     ###Getting post-Threshold Plot
     dimensions <- dim(actual_data)
     loci <- dimensions[1]
     limit <- loci-threshold
-    colnames(mm) <- actual_names
+
 
     ###Getting pre-Threshold data
-    mm2 <- as.data.frame(mm)
+    mm2 <- as.data.frame(actual_data)
 
     ###Getting post-Threshold data
-    filtered_rows <- which(mm2>limit)
+    filtered_rows <- actual_data[,colSums(actual_data)<limit]
+    kept_rows <- actual_data[,colSums(actual_data)>limit]
 
     ###Getting ready to plot
-    data.pre.filter = data.frame(group = colnames(mm2), value = as.numeric(mm2))
-    data.post.filter <- data.pre.filter
-    data.post.filter[filtered_rows,2] <- 0
-    data.filter <- data.pre.filter
-    data.filter$value <- -1*(data.pre.filter$value-data.post.filter$value)
+    data.pre.filter <- data.frame(group = colnames(mm2), value = loci-colSums(mm2), treatment=rep("pre", length(colnames(mm2))))
+    data.post.filter <- data.frame(group = colnames(kept_rows), value = loci-colSums(kept_rows), treatment=rep("post", length(colnames(kept_rows))))
+    data.filter <- data.frame(group = colnames(filtered_rows), value = -1*(loci-colSums(filtered_rows)), treatment=rep("filt", length(colnames(filtered_rows))))
 
-    stacks <- cbind(data.pre.filter, data.filter$value, data.post.filter$value)
-    colnames(stacks) <- c("species", "Total Missing", "Removed", "Remaining")
-    stacks2 <- t(stacks)
-    stacks2 <- as.data.frame(stacks2)
-    identity <- c("species","Total Missing", "Removed", "Remaining")
-    stacks2.1 <- cbind(identity, stacks2)
-    params <- dim(stacks2.1)
-    edge <- params[1]
-    edge2 <- params[2]
-    st2 <- stacks2.1[2:edge,]
-    species <- stacks[,1]
-    species <- c("identity", as.character(species))
-    colnames(st2) <- species
-    stacks.m <- melt(st2, id.vars='identity')
-    stacks.m$value <- as.numeric(as.character(stacks.m$value))
-    n <- length(unique(stacks.m[,2]))
+    stacks <- rbind(data.pre.filter, data.filter, data.post.filter)
+    colnames(stacks) <- c("Species", "TotalMissing", "Treatment")
+    
+    n <- length(unique(stacks[,2]))
     viridis_qualitative_pal7 <- viridis_pal()(n)
 
     scale_fill_discrete <- function(...) {
        scale_fill_manual(..., values = viridis_qualitative_pal7)
     }
-    ggplot(stacks.m, aes(x=identity, y=value)) +
-      geom_bar(aes(fill = variable), position = "dodge", stat="identity")+
-      theme_bw()
+#plot
+       ggplot(stacks, aes(x=Species, y= TotalMissing)) +
+      geom_bar(aes(fill = Species), position = "dodge", stat="identity")+
+      facet_grid(~factor(Treatment, levels=c("pre", "filt", "post"))) +
+      theme_classic() +
+      theme(axis.text.x=element_blank()) +
+      ylab("Loci")
 }
