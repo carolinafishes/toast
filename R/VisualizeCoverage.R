@@ -28,6 +28,7 @@ VisualizeCoverage <- function(tsv, threshold = 300){
     dimensions <- dim(actual_data)
     loci <- dimensions[1]
     limit <- loci-threshold
+    actual_data <-data.frame(apply(actual_data, 2, function(x) as.numeric(as.character(x))))
     new.mm <- actual_data[,colSums(actual_data)>limit]
 	
 	if (dim(new.mm)[[2]]==0){
@@ -47,11 +48,11 @@ VisualizeCoverage <- function(tsv, threshold = 300){
 
     #Make the bubbles
     geom_polygon(data = dat.gg, aes(x, y, group = id, fill=as.factor(id)), colour = "black", alpha = 0.3) +
-    scale_fill_manual(values = viridis(n = number, option = "A")) +
+    scale_fill_manual(values = viridis(n = number, option = "B")) +
 
     #Add text in the center of each bubble + control its size
     geom_text(data = data, aes(x, y, size=log(value), label = paste(group,value))) +
-    scale_size_continuous(range = c(2,4)) +
+    scale_size_continuous(range = c(2,3.5)) +
 
     #General theme:
     theme_void() +
@@ -78,7 +79,8 @@ VisualizeCoverage <- function(tsv, threshold = 300){
     plot2 <- ggplot(data = pa, aes(x = species,y = as.numeric(loci),fill = group)) +
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     geom_bar(stat = "identity", position = position_dodge()) +
-    scale_fill_manual(values = rev(viridis(n = 2, option = "D")))
+    scale_fill_manual(values = rev(viridis(n = 2, option = "D"))) +
+    ylab("Number of Loci")
 
     #Plotting Both Graphics
     grid.arrange(p1, plot2, nrow = 2)
