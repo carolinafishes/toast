@@ -25,5 +25,5 @@ missingDataSummary <- function(tsv){
     new.mm <- cbind(colSums(actual_data), loci-colSums(actual_data))
     colnames(new.mm)<-c("present", "absent")    
     return(new.mm)
-
 }
+
