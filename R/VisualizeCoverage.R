@@ -36,7 +36,7 @@ VisualizeCoverage <- function(tsv, threshold = 300){
 	}
 
     #Getting ready to plot
-    data <- data.frame(group = colnames(new.mm), value = colSums(new.mm))
+    data <- data.frame(group = colnames(new.mm), missing = loci-colSums(new.mm))
     packing <- circleProgressiveLayout(data$value, sizetype='area')
     packing$radius=0.95*packing$radius
     data = cbind(data, packing)

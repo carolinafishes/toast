@@ -1,6 +1,6 @@
 Package: toast
 Title: Transcriptome Ortholog Alignment Sequence Tools
-Version: 0.0.0.9000
+Version: 0.0.1.5000
 Authors@R: 
     person(given = "Dustin ",
            family = "Wcisel",
@@ -50,6 +50,9 @@ Depends:
 	doParallel,
 	streamgraph,
 	stringr,
+	phytools,
+	geiger,
+	ape,
 	reshape
 Remotes:
     jeromefroe/circlepackeR,

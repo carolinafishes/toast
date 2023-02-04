@@ -9,11 +9,11 @@
 #' @examples
 #'(filename = "superalign.txt")
 
-#' @return This function uses an aligned phylip file that is either in your working directory
+#' @return This function uses an aligned nexus file that is either in your working directory
 #'         externalfile=TRUE or that has been read into memory, externalfile=false.
 #'         This then converts it to a fasta format writing to file with user specified filename
 #' @examples
-#' NexIntoFas(nexusfile= myphylipdata, filename="file_name",externalfile=TRUE)
+#' NexIntoFas(nexusfile= mynexusdata, filename="file_name",externalfile=TRUE, tolower=FALSE)
 NexIntoFas <-function(nexusfile ="mynexusdata", filename="file_name", externalfile=TRUE, tolower=FALSE){
 	if (externalfile==TRUE){
 		nexus<-tolower(readLines(nexusfile))

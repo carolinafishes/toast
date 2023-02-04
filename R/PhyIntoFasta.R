@@ -11,7 +11,7 @@
 #'         externalfile=TRUE or that has been read into memory, externalfile=false. 
 #'         This then converts it to a fasta format writing to file with user specified filename
 #' @examples
-#' PhyIntoFasta(fastafile= myphylipdata, filename="file_name",externalfile=TRUE)
+#' PhyIntoFasta(phylipfile="myphylipdata", filename="file_name",externalfile=TRUE)
 PhyIntoFasta<-function(phylipfile="myphylipdata", filename="file_name", externalfile=TRUE){
 	if (externalfile==TRUE){
 	phylip<-read.table(phylipfile, header=TRUE) }
