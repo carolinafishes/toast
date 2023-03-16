@@ -14,6 +14,7 @@
 #'         within a specific ingroup using a user defined threshold, and whether the ingroup of interest is resolved as monophyletic.
 #'         The function returns a dataframe that gives each genetree name, the number of ingroup taxa present, and whether
 #'         these pass inspection. Trees that do not pass due to low coverage, lack of outgroups, or non-monophyly are indicated by the term "omit".
+#'         Note that the directory requires a terminating "/"
 #' @examples
 #' ingroupTaxa<-c("TaxonA", "TaxonB", "TaxonC", "TaxonD", "TaxonE")
 #' outgroupTaxa<-c("TaxonZ", "TaxonY", "TaxonX")
@@ -26,7 +27,8 @@ geneTreeFilter <- function(ingroup, outgroup, threshold=1, tree_file_dir, tree_f
     print(i)
     file<-trees[i]
     tree_info[i,1]<-file
-    tree<-read.tree(file)
+    targettree<-paste0(tree_file_dir,file)
+    tree<-read.tree(targettree)
     taxa<-tree$tip.label
     coverage<-length(which(taxa %in% ingroup)==TRUE)
     out_coverage<-length(which(taxa %in% outgroup)==TRUE)

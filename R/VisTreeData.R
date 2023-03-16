@@ -15,7 +15,7 @@ VisTreeData<-function(tsv, tree, option="both"){
 	#summarize missing data
 	dataSummary<-missingDataSummary(tsv)
 	#get the tree to match the data and vice versa
-	matchedSet<-treedata(cetTree, dataSummary)
+	matchedSet<-treedata(tree, dataSummary)
 	if (option=="both"){
 	plotTree.barplot(matchedSet$phy, matchedSet$data, args.plotTree=list(fsize=0.7,lwd=1,color="#336666"), args.barplot=list(
 	xlab="Loci",
