@@ -24,7 +24,6 @@ geneTreeFilter <- function(ingroup, outgroup, threshold=1, tree_file_dir, tree_f
   trees<-list.files(tree_file_dir, pattern=tree_file_ext)
   tree_info<-matrix(nrow=length(trees), ncol=3)
   for (i in 1:length(trees)){
-    print(i)
     file<-trees[i]
     tree_info[i,1]<-file
     targettree<-paste0(tree_file_dir,file)
