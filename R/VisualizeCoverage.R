@@ -37,7 +37,7 @@ VisualizeCoverage <- function(tsv, threshold = 300){
 
     #Getting ready to plot
     data <- data.frame(group = colnames(new.mm), missing = loci-colSums(new.mm))
-    packing <- circleProgressiveLayout(data$value, sizetype='area')
+    packing <- circleProgressiveLayout(data$missing, sizetype='area')
     packing$radius=0.95*packing$radius
     data = cbind(data, packing)
     dat.gg <- circleLayoutVertices(packing, npoints=50)
@@ -51,7 +51,7 @@ VisualizeCoverage <- function(tsv, threshold = 300){
     scale_fill_manual(values = viridis(n = number, option = "B")) +
 
     #Add text in the center of each bubble + control its size
-    geom_text(data = data, aes(x, y, size=log(value), label = paste(group,value))) +
+    geom_text(data = data, aes(x, y, size=log(missing), label = paste(group,missing))) +
     scale_size_continuous(range = c(2,3.5)) +
 
     #General theme:
