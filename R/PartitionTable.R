@@ -23,7 +23,7 @@ PartitionTable <- function(aligned_dir, missing_df, filename="table.partition"){
         if (max(missing_df[i,], na.rm = TRUE) > 0) {
             new_max <- old_max + max(missing_df[i,], na.rm = TRUE) #ignores any lines were all are NA
             new_start <- new_max - 1
-            cat("charset ", row.names(missing_df)[i], " = ", old_max, "-", new_start, ";\n", sep = "", file = "table.partition", append = TRUE)
+            cat("charset ", row.names(missing_df)[i], " = ", old_max, "-", new_start, ";\n", sep = "", file = filename, append = TRUE)
             old_max <- new_max
         }
     }
