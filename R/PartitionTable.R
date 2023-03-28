@@ -7,6 +7,8 @@
 #' @author Alex Dornburg, \email{dornburgalex@@gmail.com}
 #' @keywords toast missing transcript sequence DNA phylogeny fasta ortholog busco
 #' @param aligned_dir Directory where fasta alignments can be found
+#' @param missing_df Missing data object made by the missing function
+#' @param filename string for what you want to name your file
 #' @export
 #' @return Reads through the full table found in folders ./busco_results/run_Busco* and
 #'         returns a dataframe of the results
@@ -14,9 +16,9 @@
 #' PartitionTable(aligned_dir, species_list, threshold)
 
 
-PartitionTable <- function(aligned_dir, missing_df){
+PartitionTable <- function(aligned_dir, missing_df, filename="table.partition"){
     old_max <- 1
-    cat("#nexus\nbegin sets;\n", file = "table.partition", append = TRUE)
+    cat("#nexus\nbegin sets;\n", file = filename, append = TRUE)
     for (i in 1:length(row.names(missing_df))){
         if (max(missing_df[i,], na.rm = TRUE) > 0) {
             new_max <- old_max + max(missing_df[i,], na.rm = TRUE) #ignores any lines were all are NA
@@ -25,5 +27,5 @@ PartitionTable <- function(aligned_dir, missing_df){
             old_max <- new_max
         }
     }
-    cat("end;\n", file = "table.partition", append = TRUE)
+    cat("end;\n", file = filename, append = TRUE)
 }

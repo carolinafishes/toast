@@ -7,6 +7,8 @@
 #' @author Alex Dornburg, \email{dornburgalex@@gmail.com}
 #' @keywords toast missing transcript sequence DNA phylogeny fasta ortholog busco
 #' @param aligned_dir Directory where fasta alignments can be found
+#' @param missing_df Missing data object made by the missing function
+#' @param filename string for what you want to call your output
 #' @export
 #' @return Reads through the full table found in folders ./busco_results/run_Busco* and
 #'         returns a dataframe of the results
@@ -16,7 +18,7 @@
 
 #read in "MissingDataTable.R" results
 
-SuperAlign <- function(aligned_dir, missing_df){
+SuperAlign <- function(aligned_dir, missing_df, filename="superalign.phy"){
     num_species <- length(colnames(missing_df))
     old_max <- 0
         for (i in 1:length(row.names(missing_df))){
@@ -28,7 +30,7 @@ SuperAlign <- function(aligned_dir, missing_df){
 
     max_align_length <- old_max
     header <- paste0(num_species, "\t", max_align_length)
-    cat(file = "superalign.txt", header, "\n", append = TRUE, sep = '')
+    cat(file = filename, header, "\n", append = TRUE, sep = '')
 
     for (i in 1:length(colnames(missing_df))){
         species_to_find <- colnames(missing_df)[i] #change to i later
@@ -46,6 +48,6 @@ SuperAlign <- function(aligned_dir, missing_df){
                 thing_to_append <- paste0(thing_to_append, dashes_to_append)
             }
         }
-        cat(file = "superalign.txt", thing_to_append, "\n", append = TRUE, sep = '')
+        cat(file = filename, thing_to_append, "\n", append = TRUE, sep = '')
     }
 }

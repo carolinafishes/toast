@@ -4,10 +4,12 @@
 \alias{PartitionTable}
 \title{Utility for Creating a Partition Table from Fasta Alignments}
 \usage{
-PartitionTable(aligned_dir, missing_df)
+PartitionTable(aligned_dir, missing_df, filename)
 }
 \arguments{
 \item{aligned_dir}{Directory where fasta alignments can be found}
+\item{missing_df}{Missing data object made by the missing function}
+\item{filename}{String for what you want to name your file}
 }
 \value{
 Reads through the full table found in folders ./busco_results/run_Busco* and
@@ -17,7 +19,7 @@ Reads through the full table found in folders ./busco_results/run_Busco* and
 Parse through a directory of FASTA files and writes "table.partition" to working directory
 }
 \examples{
-PartitionTable(aligned_dir, species_list, threshold)
+PartitionTable(aligned_dir, missing, filename="table.partition")
 }
 \author{
 Dustin J Wcisel, \email{djwcisel@ncsu.edu}

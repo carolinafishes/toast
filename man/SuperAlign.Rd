@@ -2,22 +2,24 @@
 % Please edit documentation in R/SuperAlign.R
 \name{SuperAlign}
 \alias{SuperAlign}
-\title{Utility for Creating a RAxML-style Partition Table from Fasta Alignments}
+\title{Utility for Creating a concatenated alignment from Fasta Alignments}
 \usage{
 SuperAlign(aligned_dir, missing_df)
 }
 \arguments{
 \item{aligned_dir}{Directory where fasta alignments can be found}
+\item{missing_df}{Missing data object made by the missing function}
+\item{filename}{String for what you want to name your output, default is "superalign.phy"}
 }
 \value{
 Reads through the full table found in folders ./busco_results/run_Busco* and
         returns a dataframe of the results
 }
 \description{
-Parse through a directory of FASTA files to assess
+Parse through a directory of FASTA files to combine into one alignment
 }
 \examples{
-partition_df <- SuperAlign(aligned_dir)
+partition_df <- SuperAlign(aligned_dir, missing_df, filename="myalignment.phy")
 }
 \author{
 Dustin J Wcisel, \email{djwcisel@ncsu.edu}
