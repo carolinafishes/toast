@@ -53,6 +53,7 @@ Depends:
 	phytools,
 	geiger,
 	ape,
+	Amelia,
 	reshape
 Remotes:
     jeromefroe/circlepackeR,

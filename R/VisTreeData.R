@@ -11,7 +11,7 @@
 #' missingDataSummary(tsv)
 
 
-VisTreeData<-function(tsv, tree, option="both"){
+VisTreeData<-function(tsv, tree, option="both",fsize=0.7,lwd=1,color="#336666",...){
 	#summarize missing data
 	dataSummary<-missingDataSummary(tsv)
 	#get the tree to match the data and vice versa
