@@ -9,16 +9,15 @@
 #' @examples
 #' PhyIntoNex(filename = "superalign.txt")
 
-PhyIntoNex<-function(filename="superalign.txt"){
+PhyIntoNex<-function(filename="superalign.phy", outputName="superalign.nex"){
     #get the first line
     first_line <- readLines(filename,n=1)
     #get the sites
     sites<-sub(".*\t","", first_line)
     #get the taxa
     taxa<-sub("\t.*","", first_line)
-    fileroot<-sub("txt.*","", filename)
     remove_first_line<-paste("sed '1d'", filename,">", sep=" ")
-    newfile<-paste(fileroot,"nex",sep="")
+    newfile<-outputName
     remove_first_lineb<-paste(remove_first_line, "temp", sep=" ")
     system(remove_first_lineb)
     nexus_tax<-paste("NTAX=",taxa, sep="")

@@ -1,4 +1,4 @@
-#' Utility for Assessing Missing Data in a Set of FASTA Files
+#' Plot function to create a tree sorted missmap plot
 #'
 #' Parse through a directory of FASTA files to assess missing data patterns between taxa and loci
 #' @author Dustin J Wcisel, \email{djwcisel@@ncsu.edu}
@@ -11,9 +11,10 @@
 #' @export
 #' @return Plots a missmap plot of your data sorted by the tree tips
 #' @examples
-#' missing_data_df <- phyloMissmap(missing, tree)
+#' phyloMissmap(missing, tree)
 
-PhyloMissmap <- function(missing, tree,...) {
+PhyloMissmap <- function(missing, use_tree="TRUE",...) {
+   if (use_tree =="TRUE"){
     is_tip <- tree$edge[,2] <= length(tree$tip.label)
 	ordered_tips <- tree$edge[is_tip, 2]
 	tips<-tree$tip.label[ordered_tips]
@@ -21,4 +22,7 @@ PhyloMissmap <- function(missing, tree,...) {
 	#make missmap
 	
 	missmap(missing2, rank.order=FALSE,...)
+	} else {
+	missmap(missing, ...)
+	}
 }
