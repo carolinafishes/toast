@@ -1,4 +1,4 @@
-#' Scrutinize missing data patterns in your sequence data
+#' Assess completeness scores from a single sample
 #'
 #' Get scores from BUSCO summary file
 #' @author Alex Dornburg, \email{dornburgalex@@gmail.com}
