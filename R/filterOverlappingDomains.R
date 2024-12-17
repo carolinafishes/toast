@@ -1,4 +1,4 @@
-filter_overlapping_domains <- function(results) {
+filterOverlappingDomains <- function(results) {
   # Ensure numeric values
   results$alifrom <- as.numeric(results$alifrom)
   results$alito <- as.numeric(results$alito)
