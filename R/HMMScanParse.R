@@ -105,7 +105,7 @@ results$Query <- trimws(results$Query)
 results<-add_sequence_column_protein(results, fasta_file)
 #remove duplicate domains with minor wobble in start and stop
 if (clean==TRUE){
-results<-filter_overlapping_domains(results)
+results<-filterOverlappingDomains(results)
 }
 if (outputfile ==TRUE){
 write.csv(results, output_file, row.names = FALSE, quote=FALSE)
