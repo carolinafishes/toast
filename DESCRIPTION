@@ -30,7 +30,10 @@ License: GNU
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
-Depends: 
+Depends:
+R (>= 3.5.0)
+biocViews: 
+Imports:
 	rentrez,
 	BiocManager,
 	GOstats,
@@ -54,11 +57,11 @@ Depends:
 	geiger,
 	ape,
 	Amelia,
-	reshape
+	reshape,
+	GOstats,
+	genefilter,
+	Category,
+	Biostrings
 Remotes:
     jeromefroe/circlepackeR,
-    hrbrmstr/streamgraph,
-	Bioconductor/GOstats,
-	Bioconductor/genefilter,
-	Bioconductor/Category,
-	Bioconductor/Biostrings
+    hrbrmstr/streamgraph
