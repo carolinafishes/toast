@@ -32,7 +32,7 @@ LazyData: true
 RoxygenNote: 7.0.2
 Depends:
 	BiocManager
-biocViews: 
+Suggests: 
 	GOstats
 Imports:
 	rentrez,
@@ -63,5 +63,4 @@ Imports:
 	Biostrings
 Remotes:
     jeromefroe/circlepackeR,
-    hrbrmstr/streamgraph,
-    Bioc::GOstats
+    hrbrmstr/streamgraph
