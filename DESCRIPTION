@@ -57,6 +57,6 @@ Depends:
 	reshape
 Remotes:
     jeromefroe/circlepackeR,
-    hrbrmstr/streamgraph
-	Bioconductor/GOstats
+    hrbrmstr/streamgraph,
+	Bioconductor/GOstats,
 	Bioconductor/Biostrings
