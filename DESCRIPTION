@@ -57,8 +57,7 @@ Imports:
 	Amelia,
 	reshape,
 	GOstats,
-	genefilter,
-	Category,
+	tidyverse,
 	Biostrings
 Remotes:
     jeromefroe/circlepackeR,
