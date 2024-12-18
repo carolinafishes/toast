@@ -58,3 +58,5 @@ Depends:
 Remotes:
     jeromefroe/circlepackeR,
     hrbrmstr/streamgraph
+	Bioconductor/GOstats
+	Bioconductor/Biostrings
