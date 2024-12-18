@@ -59,4 +59,6 @@ Remotes:
     jeromefroe/circlepackeR,
     hrbrmstr/streamgraph,
 	Bioconductor/GOstats,
+	Bioconductor/genefilter,
+	Bioconductor/Category,
 	Bioconductor/Biostrings
