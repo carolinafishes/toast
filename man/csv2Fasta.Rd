@@ -4,7 +4,7 @@
 \alias{csv2Fasta}
 \title{Convert a CSV or dataframe with sequences in a column into a fasta}
 \usage{
-csv2Fasta(input_csv, output_fasta="mysequences.fasta", external=TRUE,seqID="Genus",seq="sequence") {
+csv2Fasta(input_csv, output_fasta="mysequences.fasta", external=TRUE,seqID="Genus",seq="sequence") 
 }
 \arguments{
 \item{input_csv}{The path to a csv file or the name of a dataframe in memory from which to extract the sequences and header}
