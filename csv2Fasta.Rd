@@ -37,9 +37,6 @@ Alex Dornburg, \email{dornburgalex@gmail.com}
 \keyword{DNA}
 \keyword{busco}
 \keyword{fasta}
-\keyword{score}
-\keyword{ortholog}
-\keyword{phylogeny}
-\keyword{sequence}
-\keyword{toast}
-\keyword{transcript}
+\keyword{utility}
+\keyword{csv}
+

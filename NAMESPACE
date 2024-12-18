@@ -3,6 +3,7 @@
 export(add_sequence_column_protein)
 export(compile_busco_summaries)
 export(CompleteCoverage)
+export(csv2Fasta)
 export(EntrezDownload)
 export(extractBuscoSeqsComp)
 export(extractBuscoSeqsDup)
