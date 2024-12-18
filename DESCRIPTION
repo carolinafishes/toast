@@ -31,10 +31,10 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
 biocViews: 
+	GOstats
 Imports:
 	rentrez,
 	BiocManager,
-	GOstats,
 	Biostrings,
 	dplyr,
 	seqinr,
@@ -61,4 +61,5 @@ Imports:
 	Biostrings
 Remotes:
     jeromefroe/circlepackeR,
-    hrbrmstr/streamgraph
+    hrbrmstr/streamgraph,
+    Bioc::GOstats
