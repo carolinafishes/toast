@@ -28,7 +28,7 @@ compile_busco_summaries <- function(folder_path) {
     # Ensure there's exactly one file
     if (length(summary_file) == 1) {
       # Parse the file and append the result
-      results_list[[dir_name]] <- parse_busco_output(summary_file, dir_name)
+      results_list[[dir_name]] <- ParseScores(summary_file, dir_name)
     } else {
       warning(paste("No unique short_summary*.txt file found in:", dir))
     }
