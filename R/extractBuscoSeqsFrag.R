@@ -33,10 +33,21 @@ extractBuscoSeqsFrag<-function(tsvtable, fasta,ed, seqID="Genus_species", thresh
         seq_index <- grep(paste0(splitnames[i], "\\b"), names(fasta))
         gene_start <- as.numeric(completeseqs$Gene.Start[i])
         gene_end <- as.numeric(completeseqs$Gene.End[i])
+        strand     <- completeseqs$Strand[i]
         full_seq <- fasta[[seq_index]]
         
-        # Extract subsequence 
-        seq_to_write <- as.character(Biostrings::subseq(full_seq, start = gene_start, end = gene_end))
+        # Extract subsequence based on strand
+        if (strand == "+") {
+          subseq_obj <- Biostrings::subseq(full_seq, start = gene_start, end = gene_end)
+        } else if (strand == "-") {
+          # Ensure start < end when slicing
+          subseq_obj <- Biostrings::subseq(full_seq, start = gene_end, end = gene_start)
+          subseq_obj <- Biostrings::reverseComplement(subseq_obj)
+        } else {
+          stop("Unknown strand direction")
+        }
+        
+        seq_to_write <- as.character(subseq_obj)
         
         cat(">", seqID, "\n", seq_to_write, 
             "\n", file = paste0(ed, "/", fragseqs[i, 
