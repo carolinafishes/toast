@@ -30,7 +30,14 @@ extractBuscoSeqsFrag<-function(tsvtable, fasta,ed, seqID="Genus_species", thresh
       #trycatch will skip errors and report if there is a problem
       tryCatch({
         #Here we are just subsampling the fasta, if the file exists already we can append to it
-        seq_to_write <-as.character(fasta[[grep(paste0(splitnames[i],"\\b"), names(fasta))]])
+        seq_index <- grep(paste0(splitnames[i], "\\b"), names(fasta))
+        gene_start <- as.numeric(completeseqs$Gene.Start[i])
+        gene_end <- as.numeric(completeseqs$Gene.End[i])
+        full_seq <- fasta[[seq_index]]
+        
+        # Extract subsequence 
+        seq_to_write <- as.character(Biostrings::subseq(full_seq, start = gene_start, end = gene_end))
+        
         cat(">", seqID, "\n", seq_to_write, 
             "\n", file = paste0(ed, "/", fragseqs[i, 
                                                   1], ".fasta"), append = TRUE, sep = "")}, error=function(e){cat("Warning there is an error here:", splitnames[i])})
